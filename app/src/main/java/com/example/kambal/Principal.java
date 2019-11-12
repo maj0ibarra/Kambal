@@ -20,10 +20,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.Toast;
 
 public class Principal extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private static final int INTERVALO = 2000; //2 segundos para salir
+    private long tiempoPrimerClick;
+
+    @Override
+    public void onBackPressed(){
+        if (tiempoPrimerClick + INTERVALO > System.currentTimeMillis()){
+            super.onBackPressed();
+            return;
+        }else {
+            Toast.makeText(this, "Vuelve a presionar para salir", Toast.LENGTH_SHORT).show();
+        }
+        tiempoPrimerClick = System.currentTimeMillis();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
